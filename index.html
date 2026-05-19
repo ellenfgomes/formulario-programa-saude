@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROGRAMA DE SAÚDE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topo">
+        <div class="topo-left">
+            <div class="brand">
+                <span class="brand-name">PROGRAMA DE SAÚDE</span>
+                <small>Linha de Cuidados</small>
+            </div>
+        </div>
+        <div class="topo-right">
+            <div class="topo-user">
+                <span>Olá, Usuário!</span>
+                <span class="user-status">Online</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="menu">
+            <div class="menu-title">LINHAS</div>
+            <button class="menu-link active" type="button" data-programa="linha-de-cuidados" onclick="abrirPrograma('linha-de-cuidados', this)">
+                <span class="menu-icon">📁</span>
+                <span>Linha de Cuidado</span>
+            </button>
+            <button class="menu-link" type="button" data-programa="programa-de-rastreio" onclick="abrirPrograma('programa-de-rastreio', this)">
+                <span class="menu-icon">🩺</span>
+                <span>Programa de Rastreio</span>
+            </button>
+        </aside>
+
+        <main class="conteudo">
+            <section class="abas" aria-label="Abas de linha de cuidado">
+                <button class="aba active" data-formulario="hipertensao" onclick="abrirFormulario('hipertensao', this)">Hipertensão</button>
+                <button class="aba" data-formulario="diabetes" onclick="abrirFormulario('diabetes', this)">Diabetes</button>
+                <button class="aba" data-formulario="gestante" onclick="abrirFormulario('gestante', this)">Gestante</button>
+                <button class="aba" data-formulario="borboletas" onclick="abrirFormulario('borboletas', this)">Borboletas</button>
+                <button class="aba" data-formulario="saude-mental" onclick="abrirFormulario('saude-mental', this)">Saúde Mental</button>
+                <button class="aba" data-formulario="mama" onclick="abrirFormulario('mama', this)">CA Mama</button>
+                <button class="aba" data-formulario="colo" onclick="abrirFormulario('colo', this)">CA Colo Útero</button>
+                <button class="aba" data-formulario="prostata" onclick="abrirFormulario('prostata', this)">CA Próstata</button>
+                <button class="aba" data-formulario="HAS" onclick="abrirFormulario('HAS', this)">HAS</button>
+                <button class="aba" data-formulario="DM" onclick="abrirFormulario('DM', this)">DM</button>
+            </section>
+
+            <section id="formulario" class="formulario"></section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
