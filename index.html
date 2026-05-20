@@ -36,19 +36,10 @@
         </aside>
 
         <main class="conteudo">
-            <section class="abas" aria-label="Abas de linha de cuidado">
-                <button class="aba active" data-formulario="hipertensao" onclick="abrirFormulario('hipertensao', this)">Hipertensão</button>
-                <button class="aba" data-formulario="diabetes" onclick="abrirFormulario('diabetes', this)">Diabetes</button>
-                <button class="aba" data-formulario="gestante" onclick="abrirFormulario('gestante', this)">Gestante</button>
-                <button class="aba" data-formulario="borboletas" onclick="abrirFormulario('borboletas', this)">Borboletas</button>
-                <button class="aba" data-formulario="saude-mental" onclick="abrirFormulario('saude-mental', this)">Saúde Mental</button>
-                <button class="aba" data-formulario="mama" onclick="abrirFormulario('mama', this)">CA Mama</button>
-                <button class="aba" data-formulario="colo" onclick="abrirFormulario('colo', this)">CA Colo Útero</button>
-                <button class="aba" data-formulario="prostata" onclick="abrirFormulario('prostata', this)">CA Próstata</button>
-                <button class="aba" data-formulario="HAS" onclick="abrirFormulario('HAS', this)">HAS</button>
-                <button class="aba" data-formulario="DM" onclick="abrirFormulario('DM', this)">DM</button>
+            <section class="abas" aria-label="Seleção de linha de cuidado">
+                <label for="abas-select" class="abas-label">Selecione a linha</label>
+                <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
             </section>
-
             <section id="formulario" class="formulario"></section>
         </main>
     </div>

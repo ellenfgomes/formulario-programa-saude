@@ -1,51 +1,71 @@
 const formularios = {
-    rastreio: {
-        titulo: 'Programa de Rastreio',
-        descricao: 'Programa de rastreio para exames preventivos e monitoramento da população-alvo.',
+    HAS: {
+        titulo: 'Linha de cuidado: HAS',
+        descricao: 'Formulário de acompanhamento para pacientes com hipertensão arterial sistêmica.',
         campos: [
             { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Idade', type: 'number', name: 'idade', placeholder: 'Idade' },
-            { label: 'Exame de rastreio', type: 'select', name: 'tipo-rastreio', options: ['Selecione', 'Mamografia', 'Papanicolau', 'PSA', 'Colesterol', 'Glicemia'] },
-            { label: 'Data do último exame', type: 'date', name: 'data-exame', placeholder: '' },
-            { label: 'Resultado anterior', type: 'textarea', name: 'resultado-anterior', placeholder: 'Anote o resultado anterior' },
-            { label: 'Próxima data prevista', type: 'date', name: 'proxima-data', placeholder: '' }
-        ]
-    },
-    hipertensao: {
-        titulo: 'Linha de cuidado: Hipertensão Arterial',
-        descricao: 'Registro de informações clínicas e acompanhamento do paciente com hipertensão.',
-        campos: [
-            { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Idade', type: 'number', name: 'idade', placeholder: 'Idade' },
-            { label: 'Data de diagnóstico', type: 'date', name: 'diagnostico', placeholder: '' },
-            { label: 'Está em acompanhamento médico?', type: 'select', name: 'acompanhamento', options: ['Selecione', 'Sim', 'Não'] },
-            { label: 'Faz uso de medicamentos contínuos?', type: 'select', name: 'medicamentos', options: ['Selecione', 'Sim', 'Não'] },
-            { label: 'Principais medicamentos', type: 'textarea', name: 'medicamentos-principais', placeholder: 'Descreva os medicamentos utilizados' },
-            { label: 'Patologias associadas', type: 'checkboxes', name: 'patologias', options: ['Diabetes Mellitus', 'Cardiopatias', 'Vasculopatias', 'Retinopatias', 'Neuropatias', 'Nefropatias'] },
+            { label: 'Pressão arterial média', type: 'text', name: 'pressao', placeholder: 'Ex: 130/80' },
+            { label: 'Uso de medicação', type: 'select', name: 'medicacao', options: ['Selecione', 'Sim', 'Não'] },
             { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
         ]
     },
-    diabetes: {
-        titulo: 'Linha de cuidado: Diabetes',
-        descricao: 'Registro de controle glicêmico, medicação e hábitos de vida do paciente.',
+    DM: {
+        titulo: 'Linha de cuidado: DM',
+        descricao: 'Ficha de acompanhamento para pacientes com diabetes mellitus.',
         campos: [
             { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Tipo de Diabetes', type: 'select', name: 'tipo-diabetes', options: ['Selecione', 'Tipo 1', 'Tipo 2', 'Gestacional'] },
-            { label: 'Último HbA1c', type: 'text', name: 'hba1c', placeholder: 'Ex: 7,2%' },
-            { label: 'Usa insulina?', type: 'select', name: 'insulina', options: ['Selecione', 'Sim', 'Não'] },
-            { label: 'Faz acompanhamento nutricional?', type: 'select', name: 'nutricao', options: ['Selecione', 'Sim', 'Não'] },
+            { label: 'Complicações associadas', type: 'textarea', name: 'complicacoes', placeholder: 'Descreva complicações' },
+            { label: 'Último acompanhamento', type: 'date', name: 'acompanhamento', placeholder: '' },
             { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
         ]
     },
-    gestante: {
-        titulo: 'Linha de cuidado: Gestante',
-        descricao: 'Ficha de acompanhamento gestacional e monitoramento pré-natal.',
+    'gestante-lactante': {
+        titulo: 'Linha de cuidado: Gestante/Lactante',
+        descricao: 'Ficha de acompanhamento para gestantes e lactantes.',
         campos: [
-            { label: 'Nome da gestante', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
+            { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
             { label: 'Idade gestacional (semanas)', type: 'number', name: 'idade-gestacional', placeholder: 'Semanas' },
-            { label: 'Data prevista para parto', type: 'date', name: 'parto', placeholder: '' },
-            { label: 'Acompanhamento pré-natal', type: 'select', name: 'prenatal', options: ['Selecione', 'Sim', 'Não'] },
-            { label: 'Exames realizados', type: 'textarea', name: 'exames', placeholder: 'Descreva os exames realizados' }
+            { label: 'Está em acompanhamento pré-natal?', type: 'select', name: 'prenatal', options: ['Selecione', 'Sim', 'Não'] },
+            { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
+        ]
+    },
+    borboletas: {
+        titulo: 'Formulário FRIDA - Avaliação de Risco em Violência Doméstica',
+        descricao: 'Formulário de Avaliação de Risco em Violência Doméstica e Familiar contra a Mulher.',
+        campos: [
+            { label: 'Nome da usuária', type: 'text', name: 'nome-usuario', placeholder: 'Digite o nome completo' },
+            { label: 'Data do atendimento', type: 'date', name: 'data-atendimento', placeholder: '' },
+            { type: 'table', name: 'frida-table', perguntas: [
+                { id: 'p1', texto: 'A violência vem aumentando de gravidade e/ou de frequência no último mês?' },
+                { id: 'p2', texto: 'A senhora/você está grávida ou teve bebê nos últimos 18 meses?' },
+                { id: 'p3', texto: 'A senhora/você tem filhos(as) com o(a) agressor(a)? (Caso não tenham filhos em comum, o registro não se aplica.) Em caso afirmativo, estão vivendo algum conflito com relação à guarda dos filhos, visitas ou pagamento de pensão pelo agressor?' },
+                { id: 'p4', texto: 'O(A) agressor(a) persegue a senhora/você, demonstra ciúme excessivo, tenta controlar sua vida e as coisas que você faz?' },
+                { id: 'p5', texto: 'A senhora/você se separou recentemente do(a) agressor(a), tentou ou tem intenção de se separar?' },
+                { id: 'p6', texto: 'O(A) agressor(a) também é violento com outras pessoas?' },
+                { id: 'p7', texto: 'A senhora/você possui algum animal doméstico? Em caso afirmativo, o(a) agressor(a) maltrata ou agride o animal?' },
+                { id: 'p8', texto: 'O(A) agressor(a) já a agrediu fisicamente outras vezes?' },
+                { id: 'p9', texto: 'Alguma vez o(a) agressor(a) tentou estrangular, sufocar ou afogar a senhora/você?' },
+                { id: 'p10', texto: 'O(A) agressor(a) já fez ameaças de morte ou tentou matar a senhora/você?' },
+                { id: 'p11', texto: 'O(A) agressor(a) já usou, ameaçou usar arma de fogo contra a senhora/você ou tem fácil acesso a uma arma?' },
+                { id: 'p12', texto: 'O(A) agressor(a) já ameaçou ou feriu com outro tipo de arma ou instrumento?' },
+                { id: 'p13', texto: 'A senhora/você necessitou de atendimento médico e/ou internação após algumas dessas agressões?' },
+                { id: 'p14', texto: 'O(A) agressor(a) é usuário de drogas e/ou bebidas alcoólicas?' },
+                { id: 'p15', texto: 'O(A) agressor(a) faz uso de medicação controlada para alguma doença mental/psiquiátrica?' },
+                { id: 'p16', texto: 'A senhora/você já teve ou tem medida protetiva de urgência?' },
+                { id: 'p17', texto: 'O(A) agressor(a) já descumpriu medida protetiva de afastamento ou proibição de contato?' },
+                { id: 'p18', texto: 'O(A) agressor(a) já ameaçou ou tentou se matar alguma vez?' },
+                { id: 'p19', texto: 'O(A) agressor(a) já obrigou a senhora/você a ter relações sexuais contra sua vontade?' },
+                { id: 'p20', texto: 'O(A) agressor(a) está com dificuldades financeiras, desempregado ou tem dificuldade de se manter no emprego?' }
+            ]},
+            { label: 'Percepção de risco da mulher', type: 'textarea', name: 'percepcao-risco', placeholder: 'Descreva a percepção de risco' },
+            { label: 'Informações adicionais relevantes', type: 'textarea', name: 'info-adicionais', placeholder: 'Informações complementares' },
+            { label: 'Condições físicas e emocionais', type: 'textarea', name: 'condicoes-fisico-emocionais', placeholder: 'Descreva as condições' },
+            { label: 'Encaminhamentos sugeridos', type: 'textarea', name: 'encaminhamentos', placeholder: 'Encaminhamentos' },
+            { label: 'Nível de risco', type: 'select', name: 'nivel-risco', options: ['Selecione', 'Baixo', 'Médio', 'Elevado'] },
+            { label: 'Nome do profissional', type: 'text', name: 'prof-nome', placeholder: 'Digite o nome completo' },
+            { label: 'Cargo/Função', type: 'text', name: 'prof-cargo', placeholder: 'Cargo ou função' },
+            { label: 'Serviço/Órgão', type: 'text', name: 'prof-servico', placeholder: 'Serviço ou órgão' },
+            { label: 'Data de preenchimento', type: 'date', name: 'data-preenchimento', placeholder: '' }
         ]
     },
     'saude-mental': {
@@ -88,32 +108,13 @@ const formularios = {
             { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
         ]
     },
-    HAS: {
-        titulo: 'Linha de cuidado: HAS',
-        descricao: 'Formulário de acompanhamento para pacientes com hipertensão arterial sistêmica.',
+    corretal: {
+        titulo: 'Linha de cuidado: Câncer Corretal',
+        descricao: 'Ficha de acompanhamento para pacientes com câncer corretal.',
         campos: [
             { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Pressão arterial média', type: 'text', name: 'pressao', placeholder: 'Ex: 130/80' },
-            { label: 'Uso de medicação', type: 'select', name: 'medicacao', options: ['Selecione', 'Sim', 'Não'] },
-            { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
-        ]
-    },
-    DM: {
-        titulo: 'Linha de cuidado: DM',
-        descricao: 'Ficha de acompanhamento para pacientes com diabetes mellitus.',
-        campos: [
-            { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Complicações associadas', type: 'textarea', name: 'complicacoes', placeholder: 'Descreva complicações' },
-            { label: 'Último acompanhamento', type: 'date', name: 'acompanhamento', placeholder: '' },
-            { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
-        ]
-    },
-    borboletas: {
-        titulo: 'Linha de cuidado: Borboletas',
-        descricao: 'Ficha de acompanhamento para pacientes especiais da linha Borboletas.',
-        campos: [
-            { label: 'Nome do paciente', type: 'text', name: 'nome', placeholder: 'Digite o nome completo' },
-            { label: 'Acompanhamento atual', type: 'textarea', name: 'acompanhamento', placeholder: 'Descreva o acompanhamento' },
+            { label: 'Último exame realizado', type: 'date', name: 'ultimo-exame', placeholder: '' },
+            { label: 'Tipo de tratamento', type: 'textarea', name: 'tratamento', placeholder: 'Descreva o tratamento em andamento' },
             { label: 'Observações', type: 'textarea', name: 'observacoes', placeholder: 'Informações adicionais' }
         ]
     }
@@ -142,6 +143,32 @@ function renderFormularioData(formularioData, key) {
                 return `<div class="campo"><label for="${campo.name}">${campo.label}</label><select id="${campo.name}" name="${campo.name}">${campo.options.map(option => `<option value="${option}">${option}</option>`).join('')}</select></div>`;
             case 'checkboxes':
                 return `<div class="campo"><label>${campo.label}</label><div class="checkbox-group">${campo.options.map(option => `<label><input type="checkbox" name="${campo.name}" value="${option}">${option}</label>`).join('')}</div></div>`;
+            case 'table':
+                const tabelaHTML = `<div class="tabela">
+                    <table class="frida-table">
+                        <thead>
+                            <tr>
+                                <th class="pergunta-col">Perguntas</th>
+                                <th>Sim</th>
+                                <th>Não</th>
+                                <th>Não sabe</th>
+                                <th>Não se aplica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${campo.perguntas.map(pergunta => `
+                                <tr>
+                                    <td>${pergunta.texto}</td>
+                                    <td><input type="radio" name="${pergunta.id}" value="sim"></td>
+                                    <td><input type="radio" name="${pergunta.id}" value="nao"></td>
+                                    <td><input type="radio" name="${pergunta.id}" value="nao-sabe"></td>
+                                    <td><input type="radio" name="${pergunta.id}" value="nao-aplica"></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>`;
+                return tabelaHTML;
             default:
                 return `<div class="campo"><label for="${campo.name}">${campo.label}</label><input type="${campo.type}" id="${campo.name}" name="${campo.name}" placeholder="${campo.placeholder}"></div>`;
         }
@@ -157,25 +184,54 @@ function renderFormularioData(formularioData, key) {
     `;
 }
 
-function abrirFormulario(formulario, aba) {
-    ativarAba(aba);
+function abrirFormulario(formulario) {
     renderFormularioData(formularios[formulario], formulario);
+}
+
+const programTabs = {
+    'linha-de-cuidados': [
+        { key: 'HAS', label: 'HAS' },
+        { key: 'DM', label: 'DM' },
+        { key: 'gestante-lactante', label: 'Gestante/Lactante' },
+        { key: 'borboletas', label: 'Borboletas' },
+        { key: 'saude-mental', label: 'Saúde Mental' }
+    ],
+    'programa-de-rastreio': [
+        { key: 'mama', label: 'CA Mama' },
+        { key: 'colo', label: 'CA Colo Útero' },
+        { key: 'prostata', label: 'CA Próstata' },
+        { key: 'corretal', label: 'CA Corretal' }
+    ]
+};
+
+function renderAbas(programa) {
+    const select = document.getElementById('abas-select');
+    const label = document.querySelector('.abas-label');
+    const tabs = programTabs[programa] || [];
+
+    select.innerHTML = '';
+    label.textContent = programa === 'programa-de-rastreio' ? 'Programa de Rastreio' : 'Linha de Cuidado';
+
+    tabs.forEach((tab, index) => {
+        const option = document.createElement('option');
+        option.value = tab.key;
+        option.textContent = tab.label;
+        select.appendChild(option);
+    });
 }
 
 function abrirPrograma(programa, botao) {
     document.querySelectorAll('.menu-link').forEach(item => item.classList.remove('active'));
     botao.classList.add('active');
 
-    const abas = document.querySelector('.abas');
-    if (programa === 'programa-de-rastreio') {
-        abas.classList.add('hidden');
-        renderFormularioData(formularios.rastreio, 'rastreio');
+    renderAbas(programa);
+
+    const select = document.getElementById('abas-select');
+    if (select.options.length > 0) {
+        select.selectedIndex = 0;
+        abrirFormulario(select.value);
     } else {
-        abas.classList.remove('hidden');
-        const abaAtiva = document.querySelector('.aba.active') || document.querySelector('.aba');
-        if (abaAtiva) {
-            abrirFormulario(abaAtiva.dataset.formulario, abaAtiva);
-        }
+        document.getElementById('formulario').innerHTML = '<div class="formulario"><h2>Programa sem formulários</h2><p>Não há formulários disponíveis para esse programa.</p></div>';
     }
 }
 
