@@ -36,11 +36,43 @@
         </aside>
 
         <main class="conteudo">
-            <section class="abas" aria-label="Seleção de linha de cuidado">
-                <label for="abas-select" class="abas-label">Selecione a linha</label>
-                <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
-            </section>
-            <section id="formulario" class="formulario"></section>
+            <div class="form-card">
+                <div class="form-card-header">
+                    <div>
+                        <div class="form-icon">📋</div>
+                        <h1>Formulário de Fluxo de Trabalho</h1>
+                        <p>Preencha os dados do colaborador e escolha a linha de cuidado desejada.</p>
+                    </div>
+                    <div class="form-status">Status: <strong>Em edição</strong></div>
+                </div>
+
+                <section class="section-group">
+                    <h2>Identificação do Colaborador</h2>
+                    <div class="grid-3">
+                        <div class="campo"><label for="cpf">CPF *</label><input id="cpf" name="cpf" type="text" placeholder="Informe o CPF"></div>
+                        <div class="campo"><label for="matricula">Matrícula</label><input id="matricula" name="matricula" type="text" placeholder="Informe a matrícula"></div>
+                        <div class="campo"><label for="nome-completo">Nome Completo</label><input id="nome-completo" name="nome-completo" type="text" placeholder="Informe o nome completo"></div>
+                        <div class="campo"><label for="nascimento">Nascimento</label><input id="nascimento" name="nascimento" type="date"></div>
+                        <div class="campo"><label for="cargo">Cargo</label><input id="cargo" name="cargo" type="text" placeholder="Informe o cargo"></div>
+                        <div class="campo"><label for="classificacao-cargo">Classif. Cargo</label><input id="classificacao-cargo" name="classificacao-cargo" type="text" placeholder="Classificação do cargo"></div>
+                        <div class="campo"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" placeholder="Nome da empresa"></div>
+                        <div class="campo"><label for="instituto">Instituto</label><input id="instituto" name="instituto" type="text" placeholder="Nome do instituto"></div>
+                        <div class="campo"><label for="local">Local</label><input id="local" name="local" type="text" placeholder="Unidade ou local"></div>
+                        <div class="campo"><label for="ramal">Ramal</label><input id="ramal" name="ramal" type="text" placeholder="Ramal"></div>
+                        <div class="campo"><label for="celular">Celular</label><input id="celular" name="celular" type="text" placeholder="Telefone celular"></div>
+                    </div>
+                </section>
+
+                <section class="section-group">
+                    <div class="programa-top">
+                        <h2>Programa de Saúde</h2>
+                        <label for="abas-select">Selecione o formulário</label>
+                    </div>
+                    <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
+                </section>
+
+                <section id="programa-form" class="programa-form"></section>
+            </div>
         </main>
     </div>
 

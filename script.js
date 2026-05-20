@@ -128,7 +128,7 @@ function ativarAba(aba) {
 }
 
 function renderFormularioData(formularioData, key) {
-    const container = document.getElementById('formulario');
+    const container = document.getElementById('programa-form');
 
     if (!formularioData) {
         container.innerHTML = '<div class="formulario"><h2>Formulário não disponível</h2><p>Selecione uma opção válida.</p></div>';
@@ -206,11 +206,9 @@ const programTabs = {
 
 function renderAbas(programa) {
     const select = document.getElementById('abas-select');
-    const label = document.querySelector('.abas-label');
     const tabs = programTabs[programa] || [];
 
     select.innerHTML = '';
-    label.textContent = programa === 'programa-de-rastreio' ? 'Programa de Rastreio' : 'Linha de Cuidado';
 
     tabs.forEach((tab, index) => {
         const option = document.createElement('option');
@@ -231,12 +229,12 @@ function abrirPrograma(programa, botao) {
         select.selectedIndex = 0;
         abrirFormulario(select.value);
     } else {
-        document.getElementById('formulario').innerHTML = '<div class="formulario"><h2>Programa sem formulários</h2><p>Não há formulários disponíveis para esse programa.</p></div>';
+        document.getElementById('programa-form').innerHTML = '<div class="formulario"><h2>Programa sem formulários</h2><p>Não há formulários disponíveis para esse programa.</p></div>';
     }
 }
 
 function salvarFormulario(formulario) {
-    const formElement = document.querySelector('#formulario .formulario');
+    const formElement = document.querySelector('.form-card');
     const inputs = formElement.querySelectorAll('input, select, textarea');
     const dados = {};
 
