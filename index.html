@@ -46,7 +46,7 @@
                     <div class="form-status">Status: <strong>Em edição</strong></div>
                 </div>
 
-                <section class="section-group">
+                <section id="entrada-section" class="section-group">
                     <h2>Identificação do Colaborador</h2>
                     <div class="grid-3">
                         <div class="campo"><label for="cpf">CPF *</label><input id="cpf" name="cpf" type="text" placeholder="Informe o CPF"></div>
@@ -63,12 +63,17 @@
                     </div>
                 </section>
 
-                <section class="section-group">
+                <section id="programa-section" class="section-group">
                     <div class="programa-top">
-                        <h2>Programa de Saúde</h2>
+                        <div>
+                            <h2>Linhas de Cuidado e Programa de Rastreio</h2>
+                            <p class="section-description">Escolha a linha de cuidado ou programa de rastreio para exibir o formulário correspondente.</p>
+                        </div>
                         <label for="abas-select">Selecione o formulário</label>
                     </div>
-                    <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
+                    <div class="programa-controls">
+                        <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
+                    </div>
                 </section>
 
                 <section id="programa-form" class="programa-form"></section>

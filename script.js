@@ -184,11 +184,17 @@ function renderFormularioData(formularioData, key) {
     `;
 }
 
-function abrirFormulario(formulario) {
+function abrirFormulario(formulario, abaButton = null) {
+    if (abaButton) {
+        document.querySelectorAll('.aba').forEach(item => item.classList.remove('active'));
+        abaButton.classList.add('active');
+    }
+
     renderFormularioData(formularios[formulario], formulario);
 }
 
 const programTabs = {
+    'formulario-de-entrada': [],
     'linha-de-cuidados': [
         { key: 'HAS', label: 'HAS' },
         { key: 'DM', label: 'DM' },
@@ -210,7 +216,25 @@ function renderAbas(programa) {
 
     select.innerHTML = '';
 
-    tabs.forEach((tab, index) => {
+    if (tabs.length === 0) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Selecione Linha de Cuidado ou Programa de Rastreio';
+        select.appendChild(option);
+        select.disabled = true;
+        return;
+    }
+
+    select.disabled = false;
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Selecione a linha de cuidado ou programa de rastreio';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+
+    tabs.forEach(tab => {
         const option = document.createElement('option');
         option.value = tab.key;
         option.textContent = tab.label;
@@ -223,14 +247,16 @@ function abrirPrograma(programa, botao) {
     botao.classList.add('active');
 
     renderAbas(programa);
+    document.getElementById('programa-form').innerHTML = '';
+}
 
-    const select = document.getElementById('abas-select');
-    if (select.options.length > 0) {
-        select.selectedIndex = 0;
-        abrirFormulario(select.value);
-    } else {
-        document.getElementById('programa-form').innerHTML = '<div class="formulario"><h2>Programa sem formulários</h2><p>Não há formulários disponíveis para esse programa.</p></div>';
+function abrirFormulario(formulario, abaButton = null) {
+    if (!formulario) {
+        document.getElementById('programa-form').innerHTML = '';
+        return;
     }
+
+    renderFormularioData(formularios[formulario], formulario);
 }
 
 function salvarFormulario(formulario) {
@@ -255,7 +281,24 @@ function salvarFormulario(formulario) {
     alert('Dados salvos localmente no console do navegador.');
 }
 
+function setTheme(mode) {
+    document.body.classList.toggle('dark-mode', mode === 'dark');
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = mode === 'dark' ? '🌙' : '☀️';
+    }
+    localStorage.setItem('theme', mode);
+}
+
+function toggleTheme() {
+    const currentMode = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+    setTheme(currentMode === 'dark' ? 'light' : 'dark');
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
     const programaAtivo = document.querySelector('.menu-link.active');
     if (programaAtivo) {
         abrirPrograma(programaAtivo.dataset.programa, programaAtivo);
