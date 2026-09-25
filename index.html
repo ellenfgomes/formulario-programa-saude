@@ -8,28 +8,28 @@
 </head>
 <body>
     <header class="topo">
-        <div class="topo-left">
-            <div class="brand">
-                <span class="brand-name">PROGRAMA DE SAÚDE</span>
-                <small>Linha de Cuidados</small>
-            </div>
+        <div class="brand">
+            <span class="brand-name">PROGRAMA DE SAÚDE</span>
+            <small>Linha de Cuidados</small>
         </div>
-        <div class="topo-right">
-            <div class="topo-user">
-                <span>Olá, Usuário!</span>
-                <span class="user-status">Online</span>
-            </div>
+        <div class="topo-user">
+            <span>Olá, Usuário!</span>
+            <span class="user-status">Online</span>
         </div>
     </header>
 
     <div class="layout">
-        <aside class="menu">
+        <aside class="menu" role="navigation">
             <div class="menu-title">LINHAS</div>
-            <button class="menu-link active" type="button" data-programa="linha-de-cuidados" onclick="abrirPrograma('linha-de-cuidados', this)">
+            <button class="menu-link active" type="button" data-secao="entrada">
+                <span class="menu-icon">📋</span>
+                <span>Formulário de Entrada</span>
+            </button>
+            <button class="menu-link" type="button" data-secao="linhas">
                 <span class="menu-icon">📁</span>
                 <span>Linha de Cuidado</span>
             </button>
-            <button class="menu-link" type="button" data-programa="programa-de-rastreio" onclick="abrirPrograma('programa-de-rastreio', this)">
+            <button class="menu-link" type="button" data-secao="rastreio">
                 <span class="menu-icon">🩺</span>
                 <span>Programa de Rastreio</span>
             </button>
@@ -39,6 +39,9 @@
             <div class="form-card">
                 <div class="form-card-header">
                     <div>
+                        <button id="botao-voltar" class="botao-voltar" type="button" disabled aria-label="Voltar para a tela anterior">
+                            <span aria-hidden="true">←</span> Voltar
+                        </button>
                         <div class="form-icon">📋</div>
                         <h1>Formulário de Fluxo de Trabalho</h1>
                         <p>Preencha os dados do colaborador e escolha a linha de cuidado desejada.</p>
@@ -46,7 +49,7 @@
                     <div class="form-status">Status: <strong>Em edição</strong></div>
                 </div>
 
-                <section id="entrada-section" class="section-group">
+                <section id="entrada-section" class="section-group secao-ativa" data-secao="entrada">
                     <h2>Identificação do Colaborador</h2>
                     <div class="grid-3">
                         <div class="campo"><label for="cpf">CPF *</label><input id="cpf" name="cpf" type="text" placeholder="Informe o CPF"></div>
@@ -63,16 +66,51 @@
                     </div>
                 </section>
 
-                <section id="programa-section" class="section-group">
-                    <div class="programa-top">
-                        <div>
-                            <h2>Linhas de Cuidado e Programa de Rastreio</h2>
-                            <p class="section-description">Escolha a linha de cuidado ou programa de rastreio para exibir o formulário correspondente.</p>
+                <section id="linhas-section" class="section-group" data-secao="linhas">
+                    <h2 style="color: #1f6fb2; margin-bottom: 24px;">LINHAS</h2>
+                    <div id="linhas-container" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="programa-bloco">
+                            <div class="programa-header">
+                                <span class="programa-icon">📁</span>
+                                <div>
+                                    <div class="programa-label">Linha de</div>
+                                    <div class="programa-title">Cuidado</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-wrapper">
+                                <button class="dropdown-trigger" data-programa="linha-de-cuidados" type="button">
+                                    <span class="dropdown-text">Selecione</span>
+                                    <span class="dropdown-icon">▼</span>
+                                </button>
+                                <div class="dropdown-menu" data-programa="linha-de-cuidados">
+                                    <div class="dropdown-placeholder">Selecione a linha de cuidado</div>
+                                </div>
+                            </div>
                         </div>
-                        <label for="abas-select">Selecione o formulário</label>
                     </div>
-                    <div class="programa-controls">
-                        <select id="abas-select" class="aba-select" onchange="abrirFormulario(this.value)"></select>
+                </section>
+
+                <section id="rastreio-section" class="section-group" data-secao="rastreio">
+                    <h2 style="color: #1f6fb2; margin-bottom: 24px;">LINHAS</h2>
+                    <div id="rastreio-container" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="programa-bloco">
+                            <div class="programa-header">
+                                <span class="programa-icon">🩺</span>
+                                <div>
+                                    <div class="programa-label">Programa de</div>
+                                    <div class="programa-title">Rastreio</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-wrapper">
+                                <button class="dropdown-trigger" data-programa="programa-de-rastreio" type="button">
+                                    <span class="dropdown-text">Selecione</span>
+                                    <span class="dropdown-icon">▼</span>
+                                </button>
+                                <div class="dropdown-menu" data-programa="programa-de-rastreio">
+                                    <div class="dropdown-placeholder">Selecione o programa</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 

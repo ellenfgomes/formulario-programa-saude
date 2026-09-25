@@ -120,13 +120,6 @@ const formularios = {
     }
 };
 
-function ativarAba(aba) {
-    document.querySelectorAll('.aba').forEach(item => {
-        item.classList.remove('active');
-    });
-    aba.classList.add('active');
-}
-
 function renderFormularioData(formularioData, key) {
     const container = document.getElementById('programa-form');
 
@@ -184,15 +177,6 @@ function renderFormularioData(formularioData, key) {
     `;
 }
 
-function abrirFormulario(formulario, abaButton = null) {
-    if (abaButton) {
-        document.querySelectorAll('.aba').forEach(item => item.classList.remove('active'));
-        abaButton.classList.add('active');
-    }
-
-    renderFormularioData(formularios[formulario], formulario);
-}
-
 const programTabs = {
     'formulario-de-entrada': [],
     'linha-de-cuidados': [
@@ -242,21 +226,65 @@ function renderAbas(programa) {
     });
 }
 
-function abrirPrograma(programa, botao) {
-    document.querySelectorAll('.menu-link').forEach(item => item.classList.remove('active'));
-    botao.classList.add('active');
-
-    renderAbas(programa);
-    document.getElementById('programa-form').innerHTML = '';
-}
-
-function abrirFormulario(formulario, abaButton = null) {
+function abrirFormulario(formulario) {
     if (!formulario) {
         document.getElementById('programa-form').innerHTML = '';
         return;
     }
 
+    if (secaoAtual !== 'formulario') {
+        historicoNavegacao.push(secaoAtual);
+    }
+
+    document.querySelectorAll('.section-group').forEach(elemento => {
+        elemento.style.display = 'none';
+        elemento.classList.remove('secao-ativa');
+    });
+    document.querySelectorAll('.menu-link').forEach(botao => botao.classList.remove('active'));
+    secaoAtual = 'formulario';
     renderFormularioData(formularios[formulario], formulario);
+    atualizarBotaoVoltar();
+}
+
+const historicoNavegacao = [];
+let secaoAtual = 'entrada';
+
+function atualizarBotaoVoltar() {
+    const botaoVoltar = document.getElementById('botao-voltar');
+    if (botaoVoltar) {
+        botaoVoltar.disabled = historicoNavegacao.length === 0;
+    }
+}
+
+function mostrarSecao(secao, registrar = true) {
+    if (registrar && secao !== secaoAtual) {
+        historicoNavegacao.push(secaoAtual);
+    }
+
+    document.querySelectorAll('.menu-link').forEach(botao => {
+        botao.classList.toggle('active', botao.dataset.secao === secao);
+    });
+
+    document.querySelectorAll('.section-group').forEach(elemento => {
+        const ativa = elemento.dataset.secao === secao;
+        elemento.style.display = ativa ? 'block' : 'none';
+        elemento.classList.toggle('secao-ativa', ativa);
+    });
+
+    document.getElementById('programa-form').innerHTML = '';
+    document.querySelectorAll('.dropdown-menu.open').forEach(menu => {
+        menu.classList.remove('open');
+        menu.closest('.dropdown-wrapper').querySelector('.dropdown-trigger').classList.remove('active');
+    });
+    secaoAtual = secao;
+    atualizarBotaoVoltar();
+}
+
+function voltar() {
+    const secaoAnterior = historicoNavegacao.pop();
+    if (secaoAnterior) {
+        mostrarSecao(secaoAnterior, false);
+    }
 }
 
 function salvarFormulario(formulario) {
@@ -271,6 +299,10 @@ function salvarFormulario(formulario) {
             }
             if (input.checked) {
                 dados[input.name].push(input.value);
+            }
+        } else if (input.type === 'radio') {
+            if (input.checked) {
+                dados[input.name] = input.value;
             }
         } else {
             dados[input.name] = input.value;
@@ -299,8 +331,97 @@ document.addEventListener('DOMContentLoaded', function () {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 
-    const programaAtivo = document.querySelector('.menu-link.active');
-    if (programaAtivo) {
-        abrirPrograma(programaAtivo.dataset.programa, programaAtivo);
-    }
+    // Controlar navegação entre seções
+    document.querySelectorAll('.menu-link').forEach(botao => {
+        botao.addEventListener('click', () => {
+            mostrarSecao(botao.dataset.secao);
+        });
+    });
+
+    document.getElementById('botao-voltar').addEventListener('click', voltar);
+
+    mostrarSecao('entrada', false);
+
+    // Inicializar dropdowns
+    inicializarDropdowns();
 });
+
+function inicializarDropdowns() {
+    const triggers = document.querySelectorAll('.dropdown-trigger');
+    
+    triggers.forEach(trigger => {
+        const programa = trigger.dataset.programa;
+        const menu = document.querySelector(`.dropdown-menu[data-programa="${programa}"]`);
+        const wrapper = trigger.closest('.dropdown-wrapper');
+        
+        // Renderizar itens do dropdown
+        renderizarDropdown(programa, menu);
+        
+        // Click no trigger para abrir/fechar
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Fechar outros dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if (m !== menu) {
+                    m.classList.remove('open');
+                    m.closest('.dropdown-wrapper').querySelector('.dropdown-trigger').classList.remove('active');
+                }
+            });
+            
+            // Toggle dropdown atual
+            menu.classList.toggle('open');
+            trigger.classList.toggle('active');
+        });
+        
+        // Click nos itens do dropdown
+        menu.addEventListener('click', (e) => {
+            const item = e.target.closest('.dropdown-item');
+            if (item) {
+                e.stopPropagation();
+                const formularioKey = item.dataset.key;
+                const formularioLabel = item.textContent;
+                
+                // Atualizar texto do trigger
+                trigger.querySelector('.dropdown-text').textContent = formularioLabel;
+                
+                // Fechar dropdown
+                menu.classList.remove('open');
+                trigger.classList.remove('active');
+                
+                // Abrir formulário
+                abrirFormulario(formularioKey);
+            }
+        });
+    });
+    
+    // Fechar dropdowns ao clicar fora
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu.open').forEach(menu => {
+            menu.classList.remove('open');
+            menu.closest('.dropdown-wrapper').querySelector('.dropdown-trigger').classList.remove('active');
+        });
+    });
+}
+
+function renderizarDropdown(programa, menu) {
+    const tabs = programTabs[programa] || [];
+    
+    menu.innerHTML = '';
+    
+    if (tabs.length === 0) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'dropdown-placeholder';
+        placeholder.textContent = programa === 'linha-de-cuidados' ? 'Nenhuma linha disponível' : 'Nenhum programa disponível';
+        menu.appendChild(placeholder);
+        return;
+    }
+    
+    tabs.forEach(tab => {
+        const item = document.createElement('div');
+        item.className = 'dropdown-item';
+        item.dataset.key = tab.key;
+        item.textContent = tab.label;
+        menu.appendChild(item);
+    });
+}
